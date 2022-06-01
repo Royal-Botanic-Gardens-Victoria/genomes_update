@@ -1,6 +1,6 @@
-#**genomes_data_fetch.py**
+**genomes_data_fetch.py**
 
-##T. R. Allnutt 2021. Collects all current green plant (or any other group you specify) genome data from NCBI. 
+T. R. Allnutt 2021. Collects all current green plant (or any other group you specify) genome data from NCBI. 
 
 Requires taxonkit, https://github.com/Royal-Botanic-Gardens-Victoria/taxonkit. In order to make local taxonomy database. Install and add to PATH.
 
