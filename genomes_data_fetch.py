@@ -57,11 +57,11 @@ def tokenize(filename):
 def get_genomes(terms,nosra):
 
 	print("Fetching NCBI genomes")
-	p0=sp.Popen('esearch -db genome -query "%s[organism]" | efetch -format docsum | xtract -pattern DocumentSummary -tab "<||>" -def "N/A" -element Organism_Name TaxId Assembly_Name Assembly_Accession Project_Accession Status Number_of_Chromosomes Create_Date > genomes.txt' %terms,shell=True).wait()
+	p0=sp.Popen('esearch -db genome -query "%s[organism]" | efetch -format docsum | xtract -pattern DocumentSummary -tab "<||>" -def "N/A" -element Organism_Name TaxId Assembly_Name Assembly_Accession Project_Accession Status Number_of_Chromosomes Create_Date > genomes.txt' %terms,shell=True)
 
 	#Get all plants from assemblies:
 	print("Fetching NCBI assemblies")
-	p1=sp.Popen('esearch -db assembly -query "%s[organism]" | esummary | xtract -pattern DocumentSummary -tab "<||>" -def "N/A" -element SpeciesName Taxid AssemblyName AssemblyAccession BioprojectAccn assembly-status SubmitterOrganization LastUpdateDate > assemblies.txt' %terms,shell=True).wait()
+	p1=sp.Popen('esearch -db assembly -query "%s[organism]" | esummary | xtract -pattern DocumentSummary -tab "<||>" -def "N/A" -element SpeciesName Taxid AssemblyName AssemblyAccession BioprojectAccn assembly-status SubmitterOrganization LastUpdateDate > assemblies.txt' %terms,shell=True)
 	
 	if nosra!="nosra":
 		print("Fetching SRA data")
@@ -69,6 +69,8 @@ def get_genomes(terms,nosra):
 	else:
 		print("Skipping SRA")
 	
+	p0.wait()
+	p1.wait()
 	
 	#Tabs can be used inside fields, therefore change sep to "<||>".
 
@@ -311,9 +313,8 @@ def main():
 
 		print(len(sra),'sra found')
 
-		print("Adding full taxonomies")
-		
-			
+	print("Adding lineages")
+
 	c=0
 	for x in genomes.keys():
 		c=c+1
@@ -334,7 +335,7 @@ def main():
 			assemblies[x]['lineage']=tax2lin[x]
 		else:
 			assemblies[x]['lineage']="no lineage found"	
-
+			
 	print("\n")
 	
 	if nosra!="nosra":
@@ -344,6 +345,7 @@ def main():
 			print('Adding sra taxonomy',c,end="\r")
 			if x in tax2lin.keys():
 				sra[x]['lineage']=tax2lin[x]
+
 			else:
 				sra[x]['lineage']="no lineage found"			
 
@@ -398,6 +400,8 @@ def main():
 				g.write("\tn")		
 			g.write("\n")
 		g.close()
+
+	
 
 if __name__ == '__main__': main()
 
