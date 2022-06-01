@@ -1,6 +1,8 @@
 **genomes_data_fetch.py**
 
-T. R. Allnutt 2021. Collects all current green plant (or any other group you specify) genome data from NCBI. 
+T. R. Allnutt 2021. 
+
+Collects all current green plant (or any other group you specify) genome data from NCBI. 
 
 Requires taxonkit, https://github.com/Royal-Botanic-Gardens-Victoria/taxonkit. In order to make local taxonomy database. Install and add to PATH.
 
@@ -15,7 +17,9 @@ NCBI taxonomy must be downloaded, e.g.:
     tar -xvf new_taxdump.tar.gz
 
 NCBI esearch must be installed. https://www.ncbi.nlm.nih.gov/books/NBK179288/
+
 An Entrez account and api key is required
+
 Set NCBI variables in ~/.bash_profile (https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/):
 
     export NCBI_API_KEY=<your_key>
