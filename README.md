@@ -39,3 +39,5 @@ Usage (all arguments positional):
     genomes_data_fetch.py update "Viridiplantae" sra
 
 SRA search can take a long time (>1 hour), to skip use 'nosra' argument.
+
+The accompanying Excel file summarises the genome data in the context of Australian plant species. To update this file, the output of genomes_data_fetched.py can be pasted directly into the corresponding worksheeets.
